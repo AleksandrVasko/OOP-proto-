@@ -9,19 +9,9 @@ const DomElement = function (selector, height, widt, bg, fontSize) {
     this.bg = bg;
     this.fontSize = fontSize;
     this.createEl = function () {
-        if (this.selector[0] == '.') {
+        function parametrs (element) {
             let newDiv = document.createElement('div');
-            newDiv.classList.add(`${this.selector}`.replace(/[^a-zа-яё]/gi, ''));
-            body.append(newDiv);
-            newDiv.style.cssText = ` 
-            height:${this.height};
-            width:${this.width};
-            background:${this.bg};
-            font-size:${this.fontSize};
-            position: absolute;`;
-            newDiv.textContent = `проверка`;
-        } else if (this.selector[0] == '#') {
-            let newDiv = document.createElement('div');
+            element == '.' || element == '#' ? newDiv.classList.add(`${this.selector}`.replace(/[^a-zа-яё]/gi, '')) : 
             newDiv.id = `${this.selector.replace(/\s/g, '').replace(/[^a-zа-яё]/gi, '')}`;
             body.append(newDiv);
             newDiv.style.cssText = ` 
@@ -31,7 +21,9 @@ const DomElement = function (selector, height, widt, bg, fontSize) {
             font-size:${this.fontSize};
             position: absolute;`;
             newDiv.textContent = `проверка`;
-        }
+            return newDiv;
+        } 
+        parametrs(this.selector[0]);
     };
     this.createEl();
     this.location = document.querySelector(`${this.selector}`);
@@ -63,13 +55,11 @@ const mover = function (currentElement) {
             currentUp = currentUp + 10;
             currentElement.style.top = `${currentUp}px`;
         }
-
-
-
     };
-
 };
 
 const newDom1 = new DomElement('.block', '200px', '200px', 'red', '12px');
 
 mover(newDom1.location);
+
+
