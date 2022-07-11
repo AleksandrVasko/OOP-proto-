@@ -2,32 +2,28 @@ const form = document.querySelector('.form');
 const headerInput = document.querySelector('.header-input');
 const body = document.querySelector('body');
 
-const DomElement = function (selector, height, widt, bg, fontSize) {
-    this.selector = selector;
-    this.height = height;
-    this.width = widt;
-    this.bg = bg;
-    this.fontSize = fontSize;
-    this.createEl = function () {
-        function parametrs (element) {
+const DomElement = function (selector, height, width, bg, fontSize) {
+    this.selector = selector; 
+    this.createEl = function  (element) {
             let newDiv = document.createElement('div');
-            element == '.' || element == '#' ? newDiv.classList.add(`${this.selector}`.replace(/[^a-zа-яё]/gi, '')) : 
-            newDiv.id = `${this.selector.replace(/\s/g, '').replace(/[^a-zа-яё]/gi, '')}`;
+            element[0] == '.' ? newDiv.classList.add(`${this.selector}`.replace(/[^a-zа-яё]/gi, '')) : (
+                newDiv = document.createElement('p'), 
+                newDiv.id = `${this.selector.replace(/\s/g, '').replace(/[^a-zа-яё]/gi, '')}`);
+            
             body.append(newDiv);
             newDiv.style.cssText = ` 
-            height:${this.height};
-            width:${this.width};
-            background:${this.bg};
-            font-size:${this.fontSize};
+            height:${height};
+            width:${width};
+            background:${bg};
+            font-size:${fontSize};
             position: absolute;`;
-            newDiv.textContent = `проверка`;
+            newDiv.textContent = 'проверка';
             return newDiv;
-        } 
-        parametrs(this.selector[0]);
     };
-    this.createEl();
+     this.createEl(this.selector); 
     this.location = document.querySelector(`${this.selector}`);
 };
+
 const mover = function (currentElement) {
     let currentRight = 0;
     let currentLeft = 0;
@@ -59,7 +55,7 @@ const mover = function (currentElement) {
 };
 
 const newDom1 = new DomElement('.block', '200px', '200px', 'red', '12px');
+mover(newDom1.location); 
 
-mover(newDom1.location);
 
 
